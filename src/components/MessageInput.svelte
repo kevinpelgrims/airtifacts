@@ -12,9 +12,16 @@
       message = '';
     }
   }
+
+  function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
+          event.preventDefault();
+          handleSubmit();
+      }
+  }
 </script>
 
 <form on:submit|preventDefault={handleSubmit} class="flex gap-2">
-    <Textarea type="text" bind:value={message} placeholder="Type your message..." class="flex-grow" />
-    <Button type="submit">Send</Button>
+    <Textarea bind:value={message} placeholder="Type your message..." class="flex-grow" on:keydown={handleKeyDown} />
+    <Button type="submit" class="self-center">Send</Button>
 </form>
