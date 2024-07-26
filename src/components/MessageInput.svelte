@@ -2,6 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   import { Button } from '$lib/components/ui/button';
   import { Textarea } from '$lib/components/ui/textarea';
+  import { SendHorizontal } from "lucide-svelte";
 
   const dispatch = createEventDispatcher<{send: string}>();
   let message = '';
@@ -23,5 +24,8 @@
 
 <form on:submit|preventDefault={handleSubmit} class="flex gap-2">
     <Textarea bind:value={message} placeholder="Type your message..." class="flex-grow" on:keydown={handleKeyDown} />
-    <Button type="submit" class="self-center">Send</Button>
+    <Button type="submit" class="self-center">
+        Send
+        <SendHorizontal class="ms-2 h-4 w-4" />
+    </Button>
 </form>
