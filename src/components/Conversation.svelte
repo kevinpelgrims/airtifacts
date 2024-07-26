@@ -1,10 +1,33 @@
 <script lang="ts">
-  import { Card, CardContent } from "$lib/components/ui/card/index.js";
   import type { ChatMessage } from "../types/ChatMessage.js";
   import { marked } from "marked";
   import DOMPurify from "dompurify";
+  import { afterUpdate } from "svelte";
 
   export let chatHistory: ChatMessage[] = [];
+
+  let chatContainerElement: HTMLDivElement;
+  let shouldAutoScroll = true;
+  let previousScrollHeight = 0;
+
+  afterUpdate(() => {
+     if (shouldAutoScroll) {
+       chatContainerElement.scrollTop = chatContainerElement.scrollHeight;
+     } else if (chatContainerElement.scrollHeight > previousScrollHeight) {
+         chatContainerElement.scrollTop += chatContainerElement.scrollHeight - previousScrollHeight;
+     }
+     previousScrollHeight = chatContainerElement.scrollHeight;
+  });
+
+  function isNearBottom(): boolean {
+    const threshold = 100; // Pixels
+    const position = chatContainerElement.scrollHeight - chatContainerElement.scrollTop - chatContainerElement.clientHeight;
+    return position <= threshold;
+  }
+
+  function handleScroll() {
+    shouldAutoScroll = isNearBottom();
+  }
 
   function renderMarkdown(content: string): string {
     const rawHtml = marked(content);
@@ -13,7 +36,7 @@
 </script>
 
 <div class="chat-interface">
-    <div class="chat-history">
+    <div class="chat-history" bind:this={chatContainerElement} on:scroll={handleScroll}>
         {#each chatHistory as message}
             <div class="message {message.role}">
                 <div class="message-content">
