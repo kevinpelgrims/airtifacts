@@ -53,13 +53,18 @@
     return processedContent;
   }
 
-  $: processedChatHistory = chatHistory.map(message => {
-    if (message.role == 'assistant') {
-      return { ...message, content: extractCodeBlocks(message.content) };
-    }
+  function processChatMessages(chatMessages: ChatMessage[]): ChatMessage[] {
+    codeBlocks = [];
+    return chatMessages.map(message => {
+      if (message.role == 'assistant') {
+        return {...message, content: extractCodeBlocks(message.content)};
+      }
 
-    return message;
-  });
+      return message;
+    });
+  }
+
+  $: processedChatHistory = processChatMessages(chatHistory);
 </script>
 
 <div class="chat-interface">
