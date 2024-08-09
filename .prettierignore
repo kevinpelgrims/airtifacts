@@ -2,3 +2,10 @@
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+
+# Imported components and generated code
+src/lib/
+
+# Project files
+README.md
+
