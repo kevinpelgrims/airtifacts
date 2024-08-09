@@ -1,38 +1,23 @@
-# create-svelte
+# AIrtifacts
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+AIrtifacts is a chat window for LLMs that provides a pane for code samples rather than inlining code in the chat window with all the surrounding text.
 
-## Creating a project
+It is currently only using OpenAI's API. Other LLMs could be supported rather easily by creating a new service and tweaking it to the specific API.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## What is this for?
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+This was made just for fun to get to know Svelte and do something useful with the OpenAI API.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Development
 
-## Developing
+Add your OpenAI API key to a `.env` file in the root of the project.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Install dependencies with `npm install` and start a development server with `npm run dev`.
+You're now up and running!
 
-```bash
-npm run dev
+## TODO
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+It would be nice to:
+* Add syntax highlighting
+* Implement smart scrolling in the code pane when clicking a code block reference in the chat window
+* Add a "copy to clipboard" button to code blocks
